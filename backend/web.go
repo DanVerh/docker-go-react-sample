@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"github.com/lib/pq"
 )
 
 func main() {
