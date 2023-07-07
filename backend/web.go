@@ -56,6 +56,30 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+
+	// Query the DB
+	rows, err := db.Query("SELECT lang, hello FROM messages")
+	if err != nil {
+	  panic(err)
+	}
+	// Close the connection to DB
+	defer rows.Close()
+
+	// Iterate through result rows
+	for rows.Next() {
+	  var lang string
+	  var hello string
+	  err = rows.Scan(&lang, &hello)
+	  if err != nil {
+	    panic(err)
+	  }
+	  fmt.Println(lang, hello)
+	}
+	// get any error encountered during iteration
+	err = rows.Err()
+	if err != nil {
+	  panic(err)
+  }
 }
 
 func connectToDB() error {
