@@ -52,6 +52,13 @@ const (
 //}
 
 func main() {
+	err := connectToDB()
+	if err != nil {
+		panic(err)
+	}
+}
+
+func connectToDB() error {
 	// Format connection string to DB
 	psqlInfo := fmt.Sprintf("postgres://%v:%v@%v:%v/%v?sslmode=disable", 
 		user,
@@ -74,4 +81,6 @@ func main() {
   		panic(err)
 	}
 	fmt.Println("DB connection succeeded")
+
+	return nil
 }
