@@ -7,6 +7,7 @@
 #docker container run -d --name db --network app-network --ip 172.18.0.2 db-image
 
 # Build and start the Go backend
+docker container rm backend -f
 cd ./backend
 docker image build -t backend-image --rm .
 docker container run -d -p 8080:8080 --network app-network --name backend backend-image
