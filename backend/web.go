@@ -52,10 +52,27 @@ const (
 //}
 
 func main() {
-	err := connectToDB()
+	psqlInfo := fmt.Sprintf("postgres://%v:%v@%v:%v/%v?sslmode=disable", 
+		user,
+        password,
+        host,
+        port,
+        dbname)
+
+	// Validate provided arguments for the connection
+	db, err := sql.Open("postgres", psqlInfo)
 	if err != nil {
-		panic(err)
+  		panic(err)
 	}
+	defer db.Close()
+	fmt.Println("DB connection arguments are valid")
+
+	// Open the test connection to DB
+	err = db.Ping()
+	if err != nil {
+  		panic(err)
+	}
+	fmt.Println("DB connection succeeded")
 
 	// Query the DB
 	rows, err := db.Query("SELECT lang, hello FROM messages")
@@ -80,31 +97,4 @@ func main() {
 	if err != nil {
 	  panic(err)
   }
-}
-
-func connectToDB() error {
-	// Format connection string to DB
-	psqlInfo := fmt.Sprintf("postgres://%v:%v@%v:%v/%v?sslmode=disable", 
-		user,
-        password,
-        host,
-        port,
-        dbname)
-
-	// Validate provided arguments for the connection
-	db, err := sql.Open("postgres", psqlInfo)
-	if err != nil {
-  		panic(err)
-	}
-	defer db.Close()
-	fmt.Println("DB connection arguments are valid")
-
-	// Open the test connection to DB
-	err = db.Ping()
-	if err != nil {
-  		panic(err)
-	}
-	fmt.Println("DB connection succeeded")
-
-	return nil
 }
