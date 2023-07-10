@@ -18,6 +18,7 @@ My goal was to create a sample application where I could implement all Docker be
 4. Pulling alpine and scratch images
 5. Start container with ENTRYPOINT to disable overriding the command
 6. Save required data to persistent volume
+7. .dockerignore file
 
 # Start the app
 Have the docker on your sytem up and running <br>
