@@ -24,7 +24,11 @@ function App() {
   // Render your component with the fetched data
   return (
     <div>
-      <h1>{data.message}</h1>
+      <ul>
+        {data.map((item) => (
+          <li>{item.hello}</li>
+        ))}
+      </ul>
     </div>
   );
 }

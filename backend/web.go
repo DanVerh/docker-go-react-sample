@@ -48,7 +48,7 @@ func main() {
 // Getting results from the query
 
 	// Query the DB
-	rows, err := db.Query("SELECT lang, hello FROM messages")
+	rows, err := db.Query("SELECT hello FROM messages")
 	if err != nil {
 	  panic(err)
 	}
@@ -60,15 +60,14 @@ func main() {
 
 	// Iterate through result rows
 	for rows.Next() {
-		var lang string
 		var hello string
-		err = rows.Scan(&lang, &hello)
+		err = rows.Scan(&hello)
 		if err != nil {
 		  panic(err)
 		}
 
 		jsonObject := make(map[string]string)
-		jsonObject[lang] = hello
+		jsonObject["hello"] = hello
 	
 		jsonArray = append(jsonArray, jsonObject)
 	}
